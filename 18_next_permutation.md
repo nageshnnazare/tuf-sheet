@@ -59,25 +59,25 @@ Step 1: Find the "break point" (rightmost ascending pair)
   Scan from right to left:
   
   [1, 3, 5, 4, 2]
-        ↑  ↑  ↑
-        5>4>2 (descending, skip)
-     ↑  ↑
-     3<5 (found break point!)
+         ↑  ↑  ↑
+        5 > 4 > 2 (descending, skip)
+     ↑   ↑
+     3 < 5 (found break point!)
      
   Index i = 1 (nums[1] = 3)
   Everything after i is descending: [5,4,2]
 
 Step 2: Find element just larger than nums[i] from right
   [1, 3, 5, 4, 2]
-     ↑     ↑
-     3  <  4 (first element > 3 from right)
+      ↑     ↑
+      3  <  4 (first element > 3 from right)
      
   Index j = 3 (nums[3] = 4)
 
 Step 3: Swap nums[i] and nums[j]
   [1, 3, 5, 4, 2]
      ↑     ↑
-     swap
+       swap
   [1, 4, 5, 3, 2]
 
 Step 4: Reverse everything after i

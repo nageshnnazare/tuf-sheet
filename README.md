@@ -1,11 +1,10 @@
-# Striver's LeetCode Array Problems Documentation
+# Striver's SDE Sheet
 
-This repository contains comprehensive documentation for a collection of array and matrix problems based on the **Striver** series. Each problem is documented in its own markdown file following a detailed template that includes problem statements, examples, constraints, visual explanations, algorithmic approaches, dry runs, fully commented C++ solutions, complexity analysis, edge cases, and interview tips.
-
-## Table of Problems
+This repository contains comprehensive documentation for a collection of problems based on the **Striver** series. Each problem is documented in its own markdown file following a detailed template that includes problem statements, examples, constraints, visual explanations, algorithmic approaches, dry runs, fully commented C++ solutions, complexity analysis, edge cases, and interview tips.
 
 | # | Problem Title | File |
 |---|------------------------------|----------------|
+| **Arrays** |
 | 01 | Second Largest and Smallest | [01_second_largest_smallest.md](arrays/01_second_largest_smallest.md) |
 | 02 | Check If Array Sorted | [02_check_array_sorted.md](arrays/02_check_array_sorted.md) |
 | 03 | Remove Duplicates from Sorted Array | [03_remove_duplicates_sorted.md](arrays/03_remove_duplicates_sorted.md) |

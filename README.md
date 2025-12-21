@@ -4,7 +4,7 @@ This repository contains comprehensive documentation for a collection of problem
 
 | # | Problem Title | File |
 |---|------------------------------|----------------|
-| **Arrays** |
+| | **Arrays** | |
 | 01 | Second Largest and Smallest | [01_second_largest_smallest.md](arrays/01_second_largest_smallest.md) |
 | 02 | Check If Array Sorted | [02_check_array_sorted.md](arrays/02_check_array_sorted.md) |
 | 03 | Remove Duplicates from Sorted Array | [03_remove_duplicates_sorted.md](arrays/03_remove_duplicates_sorted.md) |
@@ -42,5 +42,14 @@ This repository contains comprehensive documentation for a collection of problem
 | 34 | Count Inversions in Array | [34_count_inversions.md](arrays/34_count_inversions.md) |
 | 35 | Reverse Pairs | [35_reverse_pairs.md](arrays/35_reverse_pairs.md) |
 | 36 | Maximum Product Subarray | [36_max_product_subarray.md](arrays/36_max_product_subarray.md) |
+| | **Binary Search** | |
+| 01 | Binary Search Introduction | [01_binary_search_intro.md](binary_search/01_binary_search_intro.md) |
+| | **Recursion** | |
+| 01 | Introduction to Recursion | [01_recursion_intro.md](recursion/01_recursion_intro.md) |
+| 02 | Basic Recursion Problems | [02_basic_recursion_problems.md](recursion/02_basic_recursion_problems.md) |
+| 03 | Parameterized and Functional Recursion | [03_parameterized_functional_recursion.md](recursion/03_parameterized_functional_recursion.md) |
+| 04 | Reverse an Array & Check Palindrome | [04_reverse_array_palindrome.md](recursion/04_reverse_array_palindrome.md) |
+| 05 | Multiple Recursion Calls (Fibonacci) | [05_fibonacci_multiple_recursion.md](recursion/05_fibonacci_multiple_recursion.md) |
+| 06 | Printing All Subsequences | [06_print_subsequences.md](recursion/06_print_subsequences.md) |
 
 ---

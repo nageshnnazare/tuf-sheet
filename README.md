@@ -51,5 +51,8 @@ This repository contains comprehensive documentation for a collection of problem
 | 04 | Reverse an Array & Check Palindrome | [04_reverse_array_palindrome.md](recursion/04_reverse_array_palindrome.md) |
 | 05 | Multiple Recursion Calls (Fibonacci) | [05_fibonacci_multiple_recursion.md](recursion/05_fibonacci_multiple_recursion.md) |
 | 06 | Printing All Subsequences | [06_print_subsequences.md](recursion/06_print_subsequences.md) |
+| 07 | Subsequences with Sum K | [07_subsequence_sum_k.md](recursion/07_subsequence_sum_k.md) |
+| 08 | Merge Sort | [08_merge_sort.md](recursion/08_merge_sort.md) |
+| 09 | Quick Sort | [09_quick_sort.md](recursion/09_quick_sort.md) |
 
 ---

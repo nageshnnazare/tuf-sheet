@@ -1,29 +1,32 @@
 # 06. Printing All Subsequences
-**Source**: [Striver's Recursion Series - L6](https://youtu.be/AxNNVECce8c)  
-**Difficulty**: Medium (Foundational for DP)
+**LeetCode**: [78 - Subsets](https://leetcode.com/problems/subsets/) (Generalized approach for strings/arrays)  
+**Difficulty**: Medium
 
-## Overview
-A **subsequence** is a sequence derived from another sequence by deleting zero or more elements without changing the order of the remaining elements. This is different from a **subarray**, which must be contiguous.
+## Problem Statement
+A **subsequence** is a sequence derived from another sequence by deleting zero or more elements without changing the order of the remaining elements. Given an array or string, print all its possible subsequences.
 
-Generated using the **"Pick and No Pick"** (or Take and Not Take) pattern, which is the foundation for solving most subsequence, combination, and backtracking problems.
+## Examples
+### Example 1
+Input: `arr = [3, 1, 2]`  
+Output: 
+```
+3 1 2 
+3 1 
+3 2 
+3 
+1 2 
+1 
+2 
+{}
+```
+Explanation: All possible combinations maintaining the relative order.
 
----
+## Constraints
+- `1 <= arr.length <= 20` (Typical recursion limit for 2^N)
+- `-100 <= arr[i] <= 100`
 
-## 1. Subsequence vs Subarray
-For an array `[3, 1, 2]`:
-- **Subarrays**: `[3]`, `[1]`, `[2]`, `[3, 1]`, `[1, 2]`, `[3, 1, 2]` (Must be contiguous)
-- **Subsequences**: `[3]`, `[1]`, `[2]`, `[3, 1]`, `[1, 2]`, `[3, 2]`, `[3, 1, 2]`, `[]` (Can be non-contiguous, but order matters)
-
-**Total Subsequences**: 2^N (where N is the size of the array).
-
----
-
-## 2. The "Pick and No Pick" Pattern
-For every element at index `i`, we have two choices:
-1. **Pick (Take)**: Add the element to our current subsequence and move to `i + 1`.
-2. **No Pick (Not Take)**: Don't add the element and move to `i + 1`.
-
-### Visual Explanation: Recursion Tree
+## Visual Explanation
+### ASCII Diagram: The "Pick and No Pick" Decision Tree
 For input `{3, 1}`:
 ```
               f(0, [])
@@ -37,25 +40,38 @@ For input `{3, 1}`:
 f(2, [3,1]) f(2, [3]) f(2, [1]) f(2, [])
 ```
 
----
+## Approach & Intuition
+The solution uses the **"Pick and No Pick"** recursive pattern. For every element at the current index, we have two choices:
+1. **Include** the element in our current subsequence and move to the next index.
+2. **Exclude** the element and move to the next index.
+This generates a binary tree of depth `N`, where each leaf represents a unique subsequence.
 
-## 3. Algorithm Steps
-1. Define a function `printS(index, currentVector)`.
-2. **Base Case**: If `index == n`:
-   - Print the `currentVector`.
-   - Return.
-3. **Pick Condition**:
-   - Push `arr[index]` into `currentVector`.
-   - Recursively call `printS(index + 1, currentVector)`.
-4. **No Pick Condition**:
-   - Pop `arr[index]` out of `currentVector` (Backtracking step).
-   - Recursively call `printS(index + 1, currentVector)`.
+## Algorithm Steps
+1. Define a function `solve(index, currentVector)`.
+2. **Base Case**: If `index == n`, the current recursive path is complete. Print the `currentVector` and return.
+3. **Pick (Take)**: 
+   - Add `arr[index]` to `currentVector`.
+   - Recurse for `index + 1`.
+4. **No Pick (Not Take)**: 
+   - Remove `arr[index]` from `currentVector` (Backtracking step).
+   - Recurse for `index + 1`.
 
----
+## Dry Run (Step-by-Step Execution)
+Input: `[3, 1]`, `n=2`
+1. `f(0, [])`: Pick `3`. `ds = [3]`. Call `f(1, [3])`.
+2. `f(1, [3])`: Pick `1`. `ds = [3, 1]`. Call `f(2, [3, 1])`.
+3. `f(2, [3, 1])`: **Base Case**. Output `[3, 1]`. Return.
+4. Back at `f(1, [3])`: No Pick `1`. `ds = [3]`. Call `f(2, [3])`.
+5. `f(2, [3])`: **Base Case**. Output `[3]`. Return.
+6. Back at `f(0, [3])`: Backtrack `3`. `ds = []`. Call `f(0, [])` -> No Pick `3`.
+7. `f(0, [])`: No Pick `3`. `ds = []`. Call `f(1, [])`.
+8. `f(1, [])`: Pick `1`. `ds = [1]`. Call `f(2, [1])`.
+9. `f(2, [1])`: **Base Case**. Output `[1]`. Return.
+10. `f(1, [])`: No Pick `1`. `ds = []`. Call `f(2, [])`.
+11. `f(2, [])`: **Base Case**. Output `{}`. Return.
 
-## C++ Implementation
+## C++ Solution
 ### Code with Detailed Comments
-
 ```cpp
 #include <iostream>
 #include <vector>
@@ -66,12 +82,12 @@ public:
     /**
      * Recursive function to generate all subsequences.
      * @param ind: Current index in the original array
-     * @param ds: Current subsequence being built (Data Structure)
+     * @param ds: Current subsequence being built
      * @param arr: The original input array
      * @param n: Total number of elements
      */
     void printSubsequences(int ind, vector<int> &ds, int arr[], int n) {
-        // Base Case: We have made a decision for every element
+        // Base Case: Decisions made for all elements
         if (ind == n) {
             if (ds.size() == 0) {
                 cout << "{}" << endl;
@@ -83,11 +99,12 @@ public:
         }
 
         // Choice 1: PICK the current element
+        // Add current element to our subsequence and move to next
         ds.push_back(arr[ind]);
         printSubsequences(ind + 1, ds, arr, n);
 
         // Choice 2: NO PICK (Backtracking)
-        // We must remove the element we picked to explore the "Not Take" path
+        // Remove the element to explore the branch where we don't include it
         ds.pop_back();
         printSubsequences(ind + 1, ds, arr, n);
     }
@@ -105,17 +122,20 @@ int main() {
 }
 ```
 
-## Complexity Analysis
+### Complexity Analysis
 - **Time Complexity**: **O(2^N * N)**
-    - There are 2^N subsequences (leaf nodes in the tree).
-    - For each leaf, we iterate through the list of size at most N to print it.
+    - 2^N total subsequences (nodes in the tree).
+    - Printing each subsequence takes O(N) time.
 - **Space Complexity**: **O(N)**
-    - The maximum depth of the recursion stack is N.
-    - The size of the vector `ds` is at most N.
+    - Maximum depth of recursion stack is N.
+    - Temporary vector `ds` stores at most N elements.
+
+## Edge Cases
+- **Empty Array**: The algorithm should return/print `{}`.
+- **Single Element**: Outputs the element and `{}`.
+- **Duplicates in Array**: This approach will generate all mathematical subsequences; if "unique" sequences are needed, additional logic (sorting + skip) is required.
 
 ## Key Insights & Interview Tips
-- **Empty Subsequence**: Always remember that an empty set `{}` is a valid subsequence.
-- **Order of Picking**: If you "No Pick" first and then "Pick", the order of output will change but the subsequences will be the same.
-- **Power Set**: This recursive approach is one way to generate the Power Set. Another way is using **Bit Manipulation**.
-- **Important for DP**: This "Pick/No Pick" pattern is the foundation for the **0/1 Knapsack** problem and many other dynamic programming problems.
-- **Interview Tip**: If an interviewer asks to generate all subsets or subsequences, this is the standard O(2^N) solution. Mention Bit Manipulation as an alternative for a non-recursive approach.
+- **Subsequence vs Subarray**: Subsequences don't need to be contiguous, but they must maintain relative order.
+- **Power Set**: The total number of subsequences is always 2^N.
+- **Foundation**: This is the basis for solving 0/1 Knapsack, Combination Sum, and Subset Sum problems.

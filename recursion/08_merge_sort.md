@@ -1,154 +1,155 @@
 # 08. Merge Sort
-**Algorithm**: [Merge Sort Algorithm](https://en.wikipedia.org/wiki/Merge_sort)  
-**Difficulty**: Medium (Foundational)
+**LeetCode**: [912 - Sort an Array](https://leetcode.com/problems/sort-an-array/)  
+**Difficulty**: Medium
 
-## Overview
-Merge Sort is a **Divide and Conquer** algorithm. It works by recursively dividing an array into two halves, sorting them, and then merging the sorted halves back together.
+## Problem Statement
+Given an array of integers `nums`, sort the array in ascending order using the **Merge Sort** algorithm. Merge Sort is a classic Divide and Conquer algorithm that recursively splits the array into two halves, sorts them individually, and then merges the sorted halves back together.
 
----
+## Examples
+### Example 1
+Input: `nums = [5, 2, 3, 1]`  
+Output: `[1, 2, 3, 5]`  
+Explanation: The array is halved into `[5, 2]` and `[3, 1]`. After recursive sorting, they become `[2, 5]` and `[1, 3]`. Merging them results in `[1, 2, 3, 5]`.
 
-## 1. The Divide & Conquer Strategy
-1. **Divide**: Find the middle of the array to divide it into two halves.
-2. **Conquer**: Recursively sort both halves using Merge Sort.
-3. **Combine (Merge)**: Merge the two sorted halves into a single sorted array.
+## Constraints
+- `1 <= nums.length <= 5 * 10^4`
+- `-5 * 10^4 <= nums[i] <= 5 * 10^4`
 
-### Visual Explanation: The Recursion Tree
-For input: `[3, 1, 2, 4, 1, 5, 2, 6]`
+## Visual Explanation
+### ASCII Diagram: The Merge Tree
+Merge Sort works in two phases: **Dividing** (Top-Down) and **Merging** (Bottom-Up).
+
 ```
-          [3, 1, 2, 4, 1, 5, 2, 6]
-              /            \
-        [3, 1, 2, 4]      [1, 5, 2, 6]
-          /    \            /    \
-      [3, 1]  [2, 4]    [1, 5]  [2, 6]
-       /  \    /  \      /  \    /  \
-     [3] [1] [2] [4]    [1] [5] [2] [6]
-      \  /    \  /      \  /    \  /
-      [1, 3]  [2, 4]    [1, 5]  [2, 6]
-          \    /            \    /
-        [1, 2, 3, 4]      [1, 2, 5, 6]
-              \            /
-          [1, 1, 2, 2, 3, 4, 5, 6]
+          [3, 1, 4, 2]         <-- Original
+             /    \
+        [3, 1]    [4, 2]       <-- Divide
+        /   \      /   \
+      [3]   [1]  [4]   [2]     <-- Base Cases (depth log N)
+        \   /      \   /
+        [1, 3]    [2, 4]       <-- Merge Phase 1
+             \    /
+          [1, 2, 3, 4]         <-- Final Sorted Result
 ```
 
----
+## Approach & Intuition
+Merge Sort is the canonical example of **Recursive Divide and Conquer**.
+- **The Concept**: It is easier to sort two small sorted arrays than one large unsorted array.
+- **Divide**: We find the midpoint `(low + high) / 2` and split the problem into two sub-problems.
+- **Conquer**: We recursively sort the sub-problems.
+- **Merge (The Workhorse)**: Once the sub-problems are sorted, we use two pointers to compare elements from each half and pick the smaller one to put into a temporary array.
+- **Stability**: Because we use `arr[left] <= arr[right]` during the merge, we preserve the relative order of equal elements, making Merge Sort a **Stable** sorting algorithm.
 
-## 2. The Merge Logic
-The "Merge" step is where the sorting actually happens. We use two pointers to compare elements from both sorted halves and pick the smaller one to place into a temporary array.
+## Algorithm Steps
+1. **`mergeSort(low, high)`**:
+   - If `low >= high`, the sub-array has 0 or 1 element (Base Case). Return.
+   - Find `mid = (low + high) / 2`.
+   - Recurse: `mergeSort(low, mid)`.
+   - Recurse: `mergeSort(mid + 1, high)`.
+   - **Merge**: Call `merge(low, mid, high)`.
 
-### Step-by-Step Merge Example
-Sorted Left: `[1, 3]`, Sorted Right: `[2, 4]`
-1. Compare `1` and `2`: Pick `1`. Temp: `[1]`
-2. Compare `3` and `2`: Pick `2`. Temp: `[1, 2]`
-3. Compare `3` and `4`: Pick `3`. Temp: `[1, 2, 3]`
-4. Remaining in Right: `4`. Temp: `[1, 2, 3, 4]`
+2. **`merge(low, mid, high)`**:
+   - Create a `temp` list.
+   - Set `left = low`, `right = mid + 1`.
+   - While `left <= mid` AND `right <= high`:
+     - If `arr[left] <= arr[right]`, push `arr[left]` to `temp` and `left++`.
+     - Else, push `arr[right]` to `temp` and `right++`.
+   - Push any remaining elements from both halves into `temp`.
+   - **Copy Back**: Transfer all elements from `temp` back to `arr[low...high]`.
 
----
+## Dry Run (Step-by-Step Execution)
+Merging `[1, 3]` and `[2, 4]` (Indices 0..3):
+1. **Initial**: `left = 0 (val 1)`, `right = 2 (val 2)`. `temp = []`.
+2. **Step 1**: `1 <= 2`. `temp = [1]`. `left = 1`.
+3. **Step 2**: `3 > 2`. `temp = [1, 2]`. `right = 3`.
+4. **Step 3**: `3 <= 4`. `temp = [1, 2, 3]`. `left = 2 (exceeds mid)`.
+5. **Step 4**: Copy remaining from right side: `temp = [1, 2, 3, 4]`.
+6. **Final**: Copy `temp` back to `arr[0...3]`.
 
-## 3. Algorithm Steps
-1. Define `mergeSort(arr, low, high)`.
-2. **Base Case**: If `low >= high`, return (the array has 1 or 0 elements).
-3. **Recursive Split**:
-   - `mid = (low + high) / 2`.
-   - `mergeSort(arr, low, mid)`.
-   - `mergeSort(arr, mid + 1, high)`.
-4. **Merge**: Call `merge(arr, low, mid, high)` to combine the sorted parts.
-
----
-
-## C++ Implementation
+## C++ Solution
 ### Code with Detailed Comments
-
 ```cpp
 #include <iostream>
 #include <vector>
 using namespace std;
 
-class MergeSort {
+class Solution {
 public:
     /**
-     * Merges two sorted sub-arrays into a single sorted sub-array.
-     * @param arr: The original array
-     * @param low: Start index of the left half
-     * @param mid: End index of the left half
-     * @param high: End index of the right half
+     * merge: The helper function that combines two sorted sub-arrays.
      */
     void merge(vector<int> &arr, int low, int mid, int high) {
-        vector<int> temp; // Temporary array to store merged elements
+        vector<int> temp; // Temporary array for merging
         int left = low;      // Starting index of left half
         int right = mid + 1; // Starting index of right half
 
-        // 1. Compare elements from both halves and pick the smaller one
+        // Compare elements from both halves and store the smaller one in temp
         while (left <= mid && right <= high) {
             if (arr[left] <= arr[right]) {
-                temp.push_back(arr[left]);
-                left++;
+                temp.push_back(arr[left++]);
             } else {
-                temp.push_back(arr[right]);
-                right++;
+                temp.push_back(arr[right++]);
             }
         }
 
-        // 2. If elements on the left half are still left
+        // If elements on the left half are still left
         while (left <= mid) {
-            temp.push_back(arr[left]);
-            left++;
+            temp.push_back(arr[left++]);
         }
 
-        // 3. If elements on the right half are still left
+        // If elements on the right half are still left
         while (right <= high) {
-            temp.push_back(arr[right]);
-            right++;
+            temp.push_back(arr[right++]);
         }
 
-        // 4. Transfer all elements from temp back to the original array
+        // Transferring elements from temporary array back to original array
         for (int i = low; i <= high; i++) {
             arr[i] = temp[i - low];
         }
     }
 
     /**
-     * Recursively divides the array and triggers the merge logic.
+     * mergeSort: Recursive function to divide the array.
      */
-    void sort(vector<int> &arr, int low, int high) {
+    void mergeSort(vector<int> &arr, int low, int high) {
         // Base case: 1 or 0 elements
         if (low >= high) return;
 
         int mid = (low + high) / 2;
-
-        // Recursively sort the left half
-        sort(arr, low, mid);
-        // Recursively sort the right half
-        sort(arr, mid + 1, high);
-
-        // Merge the two sorted halves
+        
+        // Recursive calls for left and right halves
+        mergeSort(arr, low, mid);
+        mergeSort(arr, mid + 1, high);
+        
+        // Merge the sorted halves
         merge(arr, low, mid, high);
     }
 };
 
 int main() {
-    vector<int> arr = {4, 2, 1, 6, 7};
-    int n = arr.size();
-
-    MergeSort ms;
-    ms.sort(arr, 0, n - 1);
-
-    cout << "Sorted Array: ";
-    for (int x : arr) cout << x << " ";
-    cout << endl;
-
+    vector<int> arr = {9, 4, 7, 6, 3, 1, 5};
+    Solution sol;
+    sol.mergeSort(arr, 0, arr.size() - 1);
+    
+    for (int it : arr) cout << it << " ";
     return 0;
 }
 ```
 
-## Complexity Analysis
+### Complexity Analysis
 - **Time Complexity**: **O(N log N)**
-    - At each level, we divide the array in half (log N levels).
-    - At each level, the total work done merging is N.
+    - The dividing phase happens in $log N$ levels.
+    - At each level, we perform $O(N)$ work to merge the elements.
+    - This applies to Best, Average, and Worst cases.
 - **Space Complexity**: **O(N)**
-    - We use a temporary vector to store elements during the merge process.
+    - We use a temporary array of size $N$ during the merge process.
+
+## Edge Cases
+- **Array of size 1**: Handled by the base case `low >= high`.
+- **Already Sorted Array**: Algorithm still runs in O(N log N).
+- **Reverse Sorted Array**: Handled efficiently as well.
 
 ## Key Insights & Interview Tips
-- **Stability**: Merge Sort is a **Stable** sorting algorithm (it preserves the relative order of duplicate elements).
-- **Space Trade-off**: Unlike Quick Sort, Merge Sort is NOT an in-place sorting algorithm because it requires O(N) extra space.
-- **Linked Lists**: Merge Sort is often the preferred choice for sorting linked lists because it doesn't require random access.
-- **Interview Tip**: Always mention that while Merge Sort is consistent (O(N log N) even in worst case), its O(N) space complexity is its main drawback compared to Heap Sort or Quick Sort.
+- **Stability**: Merge sort maintains the order of equal elements. This makes it suitable for complex data where items are sorted by one field and then another.
+- **Linked Lists**: Merge sort is often the default choice for sorting Linked Lists because it doesn't require random access (unlike Quick Sort).
+- **Space Constraint**: If an interviewer asks to sort with $O(1)$ space, Merge Sort is usually disqualified (unless you mention the complex "In-place Merge" variation).
+- **Interview Tip**: Emphasize that Merge Sort is widely used in **External Sorting** (sorting data that is too huge for RAM) because it processes data sequentially.

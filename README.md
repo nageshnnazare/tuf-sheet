@@ -54,5 +54,13 @@ This repository contains comprehensive documentation for a collection of problem
 | 07 | Subsequences with Sum K | [07_subsequence_sum_k.md](recursion/07_subsequence_sum_k.md) |
 | 08 | Merge Sort | [08_merge_sort.md](recursion/08_merge_sort.md) |
 | 09 | Quick Sort | [09_quick_sort.md](recursion/09_quick_sort.md) |
+| 10 | Combination Sum | [10_combination_sum.md](recursion/10_combination_sum.md) |
+| 11 | Combination Sum II | [11_combination_sum_ii.md](recursion/11_combination_sum_ii.md) |
+| 12 | Subset Sum I | [12_subset_sum_i.md](recursion/12_subset_sum_i.md) |
+| 13 | Subset Sum II | [13_subset_sum_ii.md](recursion/13_subset_sum_ii.md) |
+| 14 | Print All Permutations | [14_permutations.md](recursion/14_permutations.md) |
+| 15 | N-Queens Problem | [15_n_queens.md](recursion/15_n_queens.md) |
+| 16 | Sudoku Solver | [16_sudoku_solver.md](recursion/16_sudoku_solver.md) |
+| 17 | M-Coloring Problem | [17_m_coloring.md](recursion/17_m_coloring.md) |
 
 ---

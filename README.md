@@ -63,4 +63,17 @@ This repository contains comprehensive documentation for a collection of problem
 | 16 | Sudoku Solver | [16_sudoku_solver.md](recursion/16_sudoku_solver.md) |
 | 17 | M-Coloring Problem | [17_m_coloring.md](recursion/17_m_coloring.md) |
 
+## Graphs
+
+| # | Problem | Documentation |
+| :--- | :--- | :--- |
+| 1 | Introduction to Graphs | [01_graph_intro.md](graphs/01_graph_intro.md) |
+| 2 | Graph Representation | [02_graph_representation.md](graphs/02_graph_representation.md) |
+| 3 | Connected Components | [03_connected_components.md](graphs/03_connected_components.md) |
+| 4 | BFS Traversal | [04_bfs_traversal.md](graphs/04_bfs_traversal.md) |
+| 5 | DFS Traversal | [05_dfs_traversal.md](graphs/05_dfs_traversal.md) |
+| 6 | Number of Provinces | [06_number_of_provinces.md](graphs/06_number_of_provinces.md) |
+| 7 | Number of Islands | [07_number_of_islands.md](graphs/07_number_of_islands.md) |
+| 8 | Flood Fill Algorithm | [08_flood_fill.md](graphs/08_flood_fill.md) |
+
 ---
